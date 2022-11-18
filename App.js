@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
+import Colors from './constants/colors.js'
 
 //saw 4/15
 
@@ -27,7 +28,7 @@ export default function App() {
 
   return (
     <>
-      <LinearGradient colors={['#4e0329', '#ddb52f']} style={styles.rootScreen}>
+      <LinearGradient colors={[Colors.primary700, Colors.accent500]} style={styles.rootScreen}>
         <ImageBackground
           source={require('./assets/images/dice.jpg')}
           resizeMode='cover'
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   safeAreaContainer: {
-    flex:1,
+    flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
   },
   backgroundImage: {
