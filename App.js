@@ -7,7 +7,7 @@ import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import Colors from './constants/colors.js'
 
-//saw 4/15
+//saw 4/19
 
 export default function App() {
 
