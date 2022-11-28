@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+
+import Colors from '../../constants/colors';
 
 
 function Numbercontainer({ children }) {
