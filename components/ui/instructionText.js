@@ -15,6 +15,7 @@ export default InstructionText;
 
 const styles = StyleSheet.create({
     instructionText: {
+        fontFamily: 'ibmPlexSans-Medium',
         color: Colors.accent500,
         fontSize: 22,
     },

@@ -42,8 +42,11 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     buttonText: {
+        fontSize: 20,
+        fontFamily: 'ibmPlexSans-Extra',
         color: 'white',
         textAlign: 'center',
+        marginVertical: 5,
         
     },
     pressed: {

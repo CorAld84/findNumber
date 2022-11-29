@@ -26,9 +26,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     numberText: {
+        fontFamily:'ibmPlexSans-Medium',
         color: Colors.accent500,
         fontSize: 36,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
 
     },
 

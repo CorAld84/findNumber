@@ -28,8 +28,6 @@ function StartGameScreen({ onPickNumber }) {
 
         const choosedNumber = parseInt(enteredNumber);
 
-        console.log(choosedNumber)
-
         if (isNaN(choosedNumber) || choosedNumber <= 0 || choosedNumber > 99) {
             Alert.alert(
                 'Invalid Number!',

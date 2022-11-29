@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert, } from 'react-native';
+import { View, StyleSheet, Alert, Text, FlatList } from 'react-native';
 import { useState, useEffect } from 'react';
 import { AntDesign } from '@expo/vector-icons'
 
@@ -10,6 +10,7 @@ import InstructionText from '../components/ui/instructionText';
 import ButtonsContainer from '../components/ui/ButtonsContainer';
 import ButtonContainer from '../components/ui/ButtonContainer';
 import Colors from '../constants/colors';
+import GuessLogItem from '../components/game/GuessLogItem'
 
 function generateRandomNumber(min, max, exclude) {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -30,12 +31,20 @@ function GameScreen({ userNumber, onGameOver }) {
 
     const initialGuessNum = generateRandomNumber(1, 100, userNumber);
     const [currentGuess, setCurrentGuess] = useState(initialGuessNum);
+    const [guessRound, setGuessRound] = useState([initialGuessNum]);
+
+
 
     useEffect(() => {
         if (currentGuess === userNumber) {
-            onGameOver();
+            onGameOver(guessRound.length);
         }
-    }, [currentGuess, userNumber, onGameOver])
+    }, [currentGuess, userNumber, onGameOver]);
+
+    useEffect(() => {
+        minBoundary = 1;
+        maxBoundary = 100;
+    }, []);
 
     function nextGuessHandler(direction) {
 
@@ -53,7 +62,11 @@ function GameScreen({ userNumber, onGameOver }) {
 
         const newRdnNumber = generateRandomNumber(minBoundary, maxBoundary, currentGuess);
         setCurrentGuess(newRdnNumber);
+        setGuessRound(prevGuessNmb => [newRdnNumber, ...prevGuessNmb]);
+
     }
+
+    const guessRoundsListLength = guessRound.length;
 
 
     return (
@@ -72,16 +85,25 @@ function GameScreen({ userNumber, onGameOver }) {
                     <ButtonsContainer>
                         <ButtonContainer>
                             <PrimaryButton press={nextGuessHandler.bind(this, 'lower')}>
-                            <AntDesign name="minussquareo" size={30} color={Colors.accent500} />
+                                <AntDesign name="minussquareo" size={30} color={Colors.accent500} />
                             </PrimaryButton>
                         </ButtonContainer>
                         <ButtonContainer>
                             <PrimaryButton press={nextGuessHandler.bind(this, 'high')}>
-                            <AntDesign name="plussquareo" size={30} color={Colors.accent500} />
+                                <AntDesign name="plussquareo" size={30} color={Colors.accent500} />
                             </PrimaryButton>
                         </ButtonContainer>
                     </ButtonsContainer>
                 </Card>
+                <View style={styles.flatContainer}>
+                    <FlatList
+                        data={guessRound}
+                        renderItem={(itemData) =>
+                            <GuessLogItem roundNumber={(guessRoundsListLength - itemData.index)} guess={itemData.item} />
+                        }
+                        keyExtractor={(item) => item}
+                    />
+                </View>
             </View>
         </>
     );
@@ -97,5 +119,9 @@ const styles = StyleSheet.create({
     instructionText: {
         marginBottom: 20,
     },
+    flatContainer:{
+        flex: 1,
+        padding: 10,
+    }
 
 });

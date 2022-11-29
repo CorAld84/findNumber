@@ -1,7 +1,5 @@
 import { Text, View, StyleSheet, } from 'react-native';
 
-import Colors from '../../constants/colors.js'
-
 function Title({ children }) {
 
     return (
@@ -20,8 +18,9 @@ export default Title;
 const styles = StyleSheet.create({
    
     title: {
+        fontFamily: 'ibmPlexSans-Extra',
         fontSize: 24,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         color: 'white',
         textAlign: 'center',
         borderWidth: 2,
