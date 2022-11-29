@@ -1,9 +1,15 @@
-import { Text, View, StyleSheet, Alert, } from 'react-native';
+import { View, StyleSheet, Alert, } from 'react-native';
 import { useState, useEffect } from 'react';
+import { AntDesign } from '@expo/vector-icons'
 
 import Title from '../components/ui/Title';
 import Numbercontainer from '../components/game/NumberContainer';
 import PrimaryButton from '../components/ui/PrimaryButton'
+import Card from '../components/ui/Card';
+import InstructionText from '../components/ui/instructionText';
+import ButtonsContainer from '../components/ui/ButtonsContainer';
+import ButtonContainer from '../components/ui/ButtonContainer';
+import Colors from '../constants/colors';
 
 function generateRandomNumber(min, max, exclude) {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -52,26 +58,30 @@ function GameScreen({ userNumber, onGameOver }) {
 
     return (
         <>
-            <View>
+            <View style={styles.container}>
                 <Title>
                     Opponent's Guest
                 </Title>
                 <Numbercontainer>
                     {currentGuess}
                 </Numbercontainer>
-                <View>
-                    <Text>
+                <Card>
+                    <InstructionText style={styles.instructionText}>
                         Higher or Lower?
-                    </Text>
-                    <View>
-                        <PrimaryButton press={nextGuessHandler.bind(this, 'lower')}>
-                            -
-                        </PrimaryButton>
-                        <PrimaryButton press={nextGuessHandler.bind(this, 'high')}>
-                            +
-                        </PrimaryButton>
-                    </View>
-                </View>
+                    </InstructionText>
+                    <ButtonsContainer>
+                        <ButtonContainer>
+                            <PrimaryButton press={nextGuessHandler.bind(this, 'lower')}>
+                            <AntDesign name="minussquareo" size={30} color={Colors.accent500} />
+                            </PrimaryButton>
+                        </ButtonContainer>
+                        <ButtonContainer>
+                            <PrimaryButton press={nextGuessHandler.bind(this, 'high')}>
+                            <AntDesign name="plussquareo" size={30} color={Colors.accent500} />
+                            </PrimaryButton>
+                        </ButtonContainer>
+                    </ButtonsContainer>
+                </Card>
             </View>
         </>
     );
@@ -83,6 +93,9 @@ export default GameScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    instructionText: {
+        marginBottom: 20,
     },
 
 });

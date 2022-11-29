@@ -39,10 +39,12 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 5,
         elevation: 4,
+        alignItems: 'center'
     },
     buttonText: {
         color: 'white',
         textAlign: 'center',
+        
     },
     pressed: {
         opacity: 0.9,

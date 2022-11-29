@@ -8,7 +8,7 @@ import GameScreen from './screens/GameScreen';
 import GameOverScreen from './screens/GameOverScreen';
 import Colors from './constants/colors.js'
 
-//saw 4/22
+//saw 4/25
 
 export default function App() {
 

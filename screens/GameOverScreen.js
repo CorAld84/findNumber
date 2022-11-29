@@ -1,12 +1,14 @@
 import { Text, StyleSheet, View } from "react-native";
 
+import InstructionText from '../components/ui/instructionText';
+
 
 function GameOverScreen() {
     return (
         <>
-            <Text>
-                Ciao over
-            </Text>
+            <InstructionText>
+                Good Accomplishment
+            </InstructionText>
         </>
     )
 }
