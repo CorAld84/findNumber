@@ -2,7 +2,7 @@ import { View, StyleSheet } from "react-native";
 
 
 
-function ButtonContainer({children}) {
+function ButtonContainer({ children }) {
     return (
         <>
             <View style={styles.buttonContainer}>
@@ -16,7 +16,8 @@ export default ButtonContainer;
 
 
 const styles = StyleSheet.create({
+
     buttonContainer: {
-        flex: 1,
+        flex:1,
     }
 })

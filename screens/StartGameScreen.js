@@ -1,6 +1,6 @@
-import { TextInput, View, StyleSheet, Alert, Text } from 'react-native';
+import { TextInput, View, StyleSheet, Alert, useWindowDimensions, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { useState } from 'react';
-import { AntDesign } from '@expo/vector-icons'
+
 
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Colors from '../constants/colors.js';
@@ -15,6 +15,8 @@ import ButtonContainer from '../components/ui/ButtonContainer';
 function StartGameScreen({ onPickNumber }) {
 
     const [enteredNumber, setEnteredNumber] = useState('');
+
+    const { width, height } = useWindowDimensions();
 
     function numberInputHandler(entered) {
         setEnteredNumber(entered);
@@ -41,35 +43,44 @@ function StartGameScreen({ onPickNumber }) {
 
     }
 
+    const marginTopDistance = height < 380 ? 30 : 100;
+
     return (
         <>
-            <View style={styles.screenContainer}>
-                <Title>Guess my Number</Title>
-                <Card>
-                    <InstructionText >Enter a Number from 1 to 99</InstructionText>
-                    <TextInput
-                        style={styles.textInput}
-                        maxLength={2}
-                        keyboardType='number-pad'
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        onChangeText={numberInputHandler}
-                        value={enteredNumber}
-                    />
-                    <ButtonsContainer>
-                        <ButtonContainer>
-                            <PrimaryButton press={resetInputHandler}>
-                                Reset
-                            </PrimaryButton>
-                        </ButtonContainer>
-                        <ButtonContainer>
-                            <PrimaryButton press={confirmInput}>
-                                Confirm
-                            </PrimaryButton>
-                        </ButtonContainer>
-                    </ButtonsContainer>
-                </Card>
-            </View>
+            <ScrollView style={styles.scroll}>
+                <KeyboardAvoidingView
+                    behavior='position'
+                    style={styles.keyboard}
+                >
+                    <View style={[styles.screenContainer, { marginTop: marginTopDistance }]}>
+                        <Title>Guess my Number</Title>
+                        <Card>
+                            <InstructionText >Enter a Number from 1 to 99</InstructionText>
+                            <TextInput
+                                style={styles.textInput}
+                                maxLength={2}
+                                keyboardType='number-pad'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                onChangeText={numberInputHandler}
+                                value={enteredNumber}
+                            />
+                            <ButtonsContainer>
+                                <ButtonContainer>
+                                    <PrimaryButton press={resetInputHandler}>
+                                        Reset
+                                    </PrimaryButton>
+                                </ButtonContainer>
+                                <ButtonContainer>
+                                    <PrimaryButton press={confirmInput}>
+                                        Confirm
+                                    </PrimaryButton>
+                                </ButtonContainer>
+                            </ButtonsContainer>
+                        </Card>
+                    </View>
+                </KeyboardAvoidingView>
+            </ScrollView>
         </>
     );
 };
@@ -77,12 +88,20 @@ function StartGameScreen({ onPickNumber }) {
 
 export default StartGameScreen;
 
+//const heightDimension = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
 
     screenContainer: {
         flex: 1,
         alignItems: 'center',
-        marginTop: 100,
+        //marginTop: heightDimension < 400 ? 30 : 100,
+    },
+    keyboard: {
+        flex: 1,
+    },
+    scroll: {
+        flex: 1
     },
     textInput: {
         height: 50,

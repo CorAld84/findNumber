@@ -14,6 +14,7 @@ export default ButtonsContainer;
 
 const styles = StyleSheet.create({
     buttonsContainer: {
+        flex: 1,
         flexDirection: 'row',
     },
 })

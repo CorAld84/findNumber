@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image, Text} from "react-native";
+import { StyleSheet, View, Image, Text, Dimensions} from "react-native";
 import PrimaryButton from "../components/ui/PrimaryButton";
 
 import Title from '../components/ui/Title';
@@ -30,24 +30,24 @@ function GameOverScreen({ roundsNumber, userNumber, onStartNewGame }) {
     )
 }
 
-// /Users/Aldolo/Desktop/devFolder/reactNative/findNumber/assets/images/GameOver.png
-
 export default GameOverScreen;
+
+const widthDimension = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        //justifyContent: 'center',
-        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     imageContainer: {
-        width: 300,
-        height: 300,
-        borderRadius: 200,
-        borderWidth: 3,
+        width: widthDimension < 380 ? 250 : 300,
+        height: widthDimension < 380 ? 250 : 300,
+        borderRadius: widthDimension < 380 ? 160 : 200,
+        borderWidth: widthDimension < 380 ? 2 : 3,
         borderColor: Colors.accent500,
-        margin: 36,
+        margin: widthDimension < 380 ? 22 : 36,
         overflow: "hidden",
         justifyContent: 'center',
         alignContent: 'center'

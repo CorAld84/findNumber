@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert, Text, FlatList } from 'react-native';
+import { View, StyleSheet, Alert, FlatList, useWindowDimensions } from 'react-native';
 import { useState, useEffect } from 'react';
 import { AntDesign } from '@expo/vector-icons'
 
@@ -28,10 +28,10 @@ let maxBoundary = 100;
 
 function GameScreen({ userNumber, onGameOver }) {
 
-
     const initialGuessNum = generateRandomNumber(1, 100, userNumber);
     const [currentGuess, setCurrentGuess] = useState(initialGuessNum);
     const [guessRound, setGuessRound] = useState([initialGuessNum]);
+    const { width, height } = useWindowDimensions();
 
 
 
@@ -68,6 +68,62 @@ function GameScreen({ userNumber, onGameOver }) {
 
     const guessRoundsListLength = guessRound.length;
 
+    let content =
+        (<>
+            <Numbercontainer>
+                {currentGuess}
+            </Numbercontainer>
+            <Card>
+                <InstructionText style={styles.instructionText}>
+                    Higher or Lower?
+                </InstructionText>
+                <ButtonsContainer>
+                    <ButtonContainer>
+                        <PrimaryButton press={nextGuessHandler.bind(this, 'lower')}>
+                            <AntDesign name="minussquareo" size={30} color={Colors.accent500} />
+                        </PrimaryButton>
+                    </ButtonContainer>
+                    <ButtonContainer>
+                        <PrimaryButton press={nextGuessHandler.bind(this, 'high')}>
+                            <AntDesign name="plussquareo" size={30} color={Colors.accent500} />
+                        </PrimaryButton>
+                    </ButtonContainer>
+                </ButtonsContainer>
+            </Card>
+        </>);
+
+    if (width > 500) {
+        content = (
+            <>
+                <Card>
+                    <InstructionText style={styles.instructionText}>
+                        Higher or Lower?
+                    </InstructionText>
+                    <View style={styles.buttonsWide}>
+                        <ButtonsContainer>
+                            <ButtonContainer>
+                                <PrimaryButton press={nextGuessHandler.bind(this, 'lower')}>
+                                    <AntDesign name="minussquareo" size={30} color={Colors.accent500} />
+                                </PrimaryButton>
+                            </ButtonContainer>
+                        </ButtonsContainer>
+                        <Numbercontainer>
+                            {currentGuess}
+                        </Numbercontainer>
+                        <ButtonsContainer>
+                            <ButtonContainer>
+                                <PrimaryButton press={nextGuessHandler.bind(this, 'high')}>
+                                    <AntDesign name="plussquareo" size={30} color={Colors.accent500} />
+                                </PrimaryButton>
+                            </ButtonContainer>
+                        </ButtonsContainer>
+                    </View>
+                </Card>
+            </>
+        )
+
+    }
+
 
     return (
         <>
@@ -75,26 +131,7 @@ function GameScreen({ userNumber, onGameOver }) {
                 <Title>
                     Opponent's Guest
                 </Title>
-                <Numbercontainer>
-                    {currentGuess}
-                </Numbercontainer>
-                <Card>
-                    <InstructionText style={styles.instructionText}>
-                        Higher or Lower?
-                    </InstructionText>
-                    <ButtonsContainer>
-                        <ButtonContainer>
-                            <PrimaryButton press={nextGuessHandler.bind(this, 'lower')}>
-                                <AntDesign name="minussquareo" size={30} color={Colors.accent500} />
-                            </PrimaryButton>
-                        </ButtonContainer>
-                        <ButtonContainer>
-                            <PrimaryButton press={nextGuessHandler.bind(this, 'high')}>
-                                <AntDesign name="plussquareo" size={30} color={Colors.accent500} />
-                            </PrimaryButton>
-                        </ButtonContainer>
-                    </ButtonsContainer>
-                </Card>
+                {content}
                 <View style={styles.flatContainer}>
                     <FlatList
                         data={guessRound}
@@ -115,13 +152,21 @@ export default GameScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: 15,
+        alignItems: 'center',
     },
     instructionText: {
         marginBottom: 20,
     },
-    flatContainer:{
+    flatContainer: {
         flex: 1,
         padding: 10,
-    }
+    },
+    buttonsWide: {
+        flexDirection: 'row',
+        alignItems: 'center',
+
+
+    },
 
 });
